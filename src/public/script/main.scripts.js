@@ -280,11 +280,13 @@ loginButton.onclick = function (e) {
 // Register func
 const registerButton = document.getElementById("registerbtn");
 registerButton.onclick = function (e) {
-  e.preventDefault(); 3
+  e.preventDefault();
+
   let username = document.getElementById('inputUsername2').value;
   let email = document.getElementById('inputEmail2').value;
   let password = document.getElementById('inputPassword2').value;
   const obj = { "username": username, "email": email, "password": password };
+
   fetch('/api/users/register', {
     method: 'POST',
     body: JSON.stringify(obj),
@@ -294,9 +296,13 @@ registerButton.onclick = function (e) {
   }).then(result => {
     if (result.status === 201) {
       alert("User registered successfully. Please login.");
-      window.location.replace('/');
+      // Hacer una solicitud adicional para realizar el logout en el servidor
+      fetch('/api/users/logout', { method: 'POST' }).then(() => {
+        // Después de hacer el logout en el servidor, redirigir al usuario
+        window.location.replace('/');
+      });
     } else if (result.status === 400) {
-      alert("Validation failed. Please check your inputs. username and email are uniques");
+      alert("Validation failed. Please check your inputs. Username and email must be unique.");
     } else if (result.status === 500) {
       alert("Internal server error. Please try again later.");
     } else {

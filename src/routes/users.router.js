@@ -52,8 +52,8 @@ async (req, res) => {
   user.cartId = cartId._id;
   await UserDAO.updateUser(userId, user)
   res.status(201).send({ status: "success", message: "User crated successfully" });
-  await handleLogout();
 })
+
 // Login with passport
 router.post('/login', passport.authenticate('login',
   {
