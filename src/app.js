@@ -3,6 +3,7 @@ import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import usersRouter from "./routes/users.router.js";
 import viewsRouter from "./routes/views.router.js";
+import sessionsRouter from "./routes/sessions.router.js"
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import mongoose from "mongoose";
@@ -16,7 +17,7 @@ import passport from 'passport';
 import initializePassport from './config/passport.config.js'
 
 // import http from 'http';
-import { Server } from "socket.io";
+// import { Server } from "socket.io";
 
 //express conf.
 const app = express();
@@ -86,6 +87,8 @@ app.use("/", viewsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartsRouter);
 app.use("/api/users", usersRouter);
+
+app.use('/api/sessions', sessionsRouter)
 
 // Mongoose connection
 mongoose
